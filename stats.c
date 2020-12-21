@@ -9,13 +9,13 @@
  *
  *****************************************************************************/
 /**
- * @file <Add File Name> 
+ * @file stats.c 
  * @brief <Add Brief Description Here >
  *
  * <Add Extended Description Here>
  *
- * @author <Add FirsName LastName>
- * @date <Add date >
+ * @author Cuneyt Kepildek
+ * @date Nov 15 2020
  *
  */
 
@@ -36,8 +36,21 @@ void main() {
                                 7,  87, 250, 230,  99,   3, 100,  90};
 
   /* Other Variable Declarations Go Here */
+  unsigned char median;
+  unsigned char mean;
+  unsigned char minimum;
+  unsigned char maximum;
+  unsigned char s_array[SIZE];
   /* Statistics and Printing Functions Go Here */
-
+  s_array = sort_array(test);
+  median = find_median(s_array, SIZE);
+  mean = find_mean(test, SIZE);
+  maximum = find_maximum(test, SIZE);
+  minimum = find_minimum(test, SIZE);
+  
+  print_array();
+  print_statistics();
+  
 }
 
 /* Add other Implementation File Code Here */
