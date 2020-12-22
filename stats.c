@@ -1,21 +1,20 @@
-/******************************************************************************
- * Copyright (C) 2017 by Alex Fosdick - University of Colorado
- *
- * Redistribution, modification or use of this software in source or binary
- * forms is permitted as long as the files maintain this copyright. Users are 
- * permitted to modify this and use it to learn about the field of embedded
- * software. Alex Fosdick and the University of Colorado are not liable for any
- * misuse of this material. 
- *
- *****************************************************************************/
+
 /**
- * @file stats.c 
- * @brief <Add Brief Description Here >
+ * File: stats.c 
+ * 
+ * The information in this file is meant as a learning tool for myself.
  *
- * <Add Extended Description Here>
  *
- * @author Cuneyt Kepildek
- * @date Nov 15 2020
+ * Author: Cuneyt Kepildek
+ * Date: Nov 15 2020
+ *
+ * Description: A simple C-Programming example that exhibits a handful of basic c
+ *              features to show how to calculate some statistics on an array:
+ *                 -Mean
+ *                 -Median
+ *                 -Maximum
+ *                 -Minimum
+ *                 -Sort of an array
  *
  */
 
@@ -26,6 +25,7 @@
 
 /* Size of the Data Set */
 #define SIZE (40)
+#define NULL (0)
 
 void main() {
 
@@ -40,17 +40,125 @@ void main() {
   unsigned char mean;
   unsigned char minimum;
   unsigned char maximum;
-  unsigned char s_array[SIZE];
+  //unsigned char s_array[SIZE];
   /* Statistics and Printing Functions Go Here */
-  s_array = sort_array(test);
-  median = find_median(s_array, SIZE);
+  
+  //s_array = sort_array(test);
+  median = find_median(test , SIZE);
   mean = find_mean(test, SIZE);
   maximum = find_maximum(test, SIZE);
   minimum = find_minimum(test, SIZE);
-  
-  print_array();
-  print_statistics();
+  print_array(test, SIZE);
+  sort_array(test,SIZE);
+  print_statistics(median,mean,maximum,minimum);
   
 }
 
 /* Add other Implementation File Code Here */
+unsigned char find_median(unsigned char *ptr, unsigned int An){
+  int i;
+  unsigned char median;
+  if ( ptr == NULL){
+    return 0;
+  }
+  
+  if( An <= 0 ){
+    An = 1;
+  } 
+  An = An/2;
+  ptr = ptr + An;
+  median = *ptr;
+  return (median); 
+}
+
+void sort_array(unsigned char array[], unsigned int An){
+  int i,j,temp,min;
+  
+  for(i = 0;i < An;i++){   
+    for(j = 0;j < An;j++){
+      if(array[i]<array[j]){
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+  }
+  }
+  printf("\nSort_array:\n ");
+  for(i=An-1;i>=0;i--)
+    printf("%d  ",array[i]);
+}
+
+unsigned char find_maximum(unsigned char *ptr, unsigned int An){
+   int i;
+   unsigned char max;
+   max=*ptr;
+   for(i = 0;i < An;i++){  
+   ptr++;
+   if(*ptr > max)
+      max = *ptr;
+   }
+
+ return(max);
+}
+
+unsigned char find_minimum(unsigned char *ptr, unsigned int An){
+   int i;
+   unsigned char min;
+   min=*ptr;
+   for(i = 0;i < An-1;i++){
+   
+   ptr++;
+   if(*ptr < min)
+      min = *ptr;
+   }
+
+   return(min);
+}
+
+unsigned char find_mean(unsigned char *ptr, unsigned int An){
+   int i;
+   int sum;
+   unsigned char mean;
+   for(i = 0;i < An;i++){
+      sum += *ptr;
+      ptr++; 
+   }
+   mean = (float)sum / An;
+   return(mean);
+}
+
+void print_array(unsigned char array[], unsigned int An){
+   int i;
+   printf("\nPrint_array: \n");
+   for(i=0;i<An;i++)
+   printf("%d  ",array[i]);
+}
+
+void print_statistics(unsigned char median,unsigned char mean,unsigned char maximum,unsigned char minimum){
+   
+  printf("\nMedian = %d ", median);
+  printf("\nMaximum = %d ", maximum);
+  printf("\nMinimum = %d ", minimum);
+  printf("\nMean = %d ", mean);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
